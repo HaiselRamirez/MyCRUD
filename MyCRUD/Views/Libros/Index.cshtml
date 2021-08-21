@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MyCRUD.Models.Libro>
+
+@{
+	ViewData["Title"] = "Lista de libros";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+	@if (TempData["mensaje"] != null){
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong><i class="fas fa-thumbs-up"></i> Bién!</strong>
+					<p>@TempData["mensaje"]</p>
+					<button class="close" data-dismiss="alert" aria-label="close" type="button">
+						<i class="fas fa-times" aria-hidden="true"></i>
+					</button>
+				</div>
+			}
+	<div class="row my-4">
+		<div class="col-sm-8">
+			<h3><i class="fas fa-book"></i>&nbsp;Lista de Libros</h3>
+		</div>
+		<div class="col-sm-4">
+			<a class="btn btn-success d-block" asp-action="Create" asp-controller="Libros"><i class="fas fa-plus-circle"></i>&nbsp;Nuevo Libro</a>
+		</div>
+	</div>
+	<div class="row">
+		@if (Model.Count() > 0)
+		{
+			<div class="col-12">
+				<div class="table-responsive">
+					<table class="table table-bordered table-striped table-sm">
+						<thead>
+							<tr>
+								<th>@Html.DisplayNameFor(m => m.Id)</th>
+								<th>@Html.DisplayNameFor(m => m.Titulo)</th>
+								<th>@Html.DisplayNameFor(m => m.Descripcion)</th>
+								<th>@Html.DisplayNameFor(m => m.FechaLanzamiento)</th>
+								<th>@Html.DisplayNameFor(m => m.Autor)</th>
+								<th>@Html.DisplayNameFor(m => m.Precio)</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							 {
+									<tr>
+										<td>@item.Id</td>
+										<td>@item.Titulo</td>
+										<td>@item.Descripcion</td>
+										<td>@item.FechaLanzamiento</td>
+										<td>@item.Autor</td>
+										<td>@item.Precio</td>
+										<td>
+											<a asp-controller="Libros" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+											<i class="fas fa-pen-alt"></i>
+											</a>
+											<a asp-controller="Libros" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+											<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+							 }
+						</tbody>
+					</table>
+				</div>
+			</div>
+		}else
+		{
+	<div class="col-12">
+		<div class="alert alert-danger">No existen registros</div>
+	</div>
+		}
+	</div>
+</div>
+
